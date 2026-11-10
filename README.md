@@ -8,6 +8,17 @@ from Microsoft Defender, and root causes from Microsoft's own tools, documented 
 classes. Every report says what was checked, by which source, and what was *not* checked. No report
 ever says the PC is "clean".
 
+## Download
+
+### [⬇ Download PC Doctor for Windows (PCDoctor-x64.msi)](https://github.com/OmarAlnasser/pc-doctor/releases/latest/download/PCDoctor-x64.msi)
+
+That file is right for almost every Windows PC. For ARM PCs (for example Snapdragon laptops) use
+[PCDoctor-arm64.msi](https://github.com/OmarAlnasser/pc-doctor/releases/latest/download/PCDoctor-arm64.msi).
+All versions are on the [Releases page](https://github.com/OmarAlnasser/pc-doctor/releases).
+
+Windows may show an "unknown publisher" warning when you run it, because the installer is not signed
+with a paid certificate. Installing a newer version replaces the older one.
+
 ## Status
 
 All phases P0–P7 are implemented and tested on Linux CI fixtures plus a Windows CI job that renders
