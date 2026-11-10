@@ -17,7 +17,7 @@ internal static class Fixtures
 
     public static string Text(string name) => File.ReadAllText(Path.Combine(Dir, name));
 
-    /// <summary>The repository's pcdoctor/ folder, found by walking up from the test binary.</summary>
+    /// <summary>The repository root, found by walking up from the test binary.</summary>
     public static string SourceRoot
     {
         get

@@ -43,7 +43,7 @@ only, stopped when the answer is in). In every mode PC Doctor never downloads or
 **Run at sign-in.** History → schedule → "Every time I sign in" adds one least-privilege task that runs
 the read-only Health Check two minutes after sign-in and then exits. Nothing stays in the background.
 
-UI: Khazna's design language (`docs/DESIGN.md` in the repo root): dark-first tokens with Light and
+UI: the design language of the Khazna app (its `docs/DESIGN.md`, in the OmarAlnasser/Password repository): dark-first tokens with Light and
 High Contrast themes, Outfit / IBM Plex Sans Arabic / JetBrains Mono, staggered entrance motion,
 hover lift, page transitions, count-up numbers and live indicators. All motion turns off when
 Windows animations are off or "Reduce motion" is set in the app.
@@ -103,7 +103,6 @@ against recorded fixtures.
 ## Building and testing
 
 ```bash
-cd pcdoctor
 dotnet test PcDoctor.sln            # runs on Windows, Linux or macOS
 dotnet publish src/PcDoctor.App -c Release -r win-x64 --self-contained false -o out/win-x64
 ```

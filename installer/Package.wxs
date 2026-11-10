@@ -11,7 +11,7 @@
            UpgradeCode="6F1B2C4E-8D3A-4B7E-9C51-2E4A7D0B9F13" Language="1033">
     <MajorUpgrade DowngradeErrorMessage="A newer version of PC Doctor is already installed." />
     <MediaTemplate EmbedCab="yes" />
-    <Property Id="ARPURLINFOABOUT" Value="https://github.com/OmarAlnasser/Password" />
+    <Property Id="ARPURLINFOABOUT" Value="https://github.com/OmarAlnasser/pc-doctor" />
 
     <StandardDirectory Id="ProgramFiles6432Folder">
       <Directory Id="INSTALLFOLDER" Name="PC Doctor" />
