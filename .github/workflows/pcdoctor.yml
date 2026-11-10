@@ -69,7 +69,7 @@ jobs:
         run: |
           Copy-Item THIRD_PARTY_NOTICES.md out/${{ matrix.rid }}/
           $platform = '${{ matrix.rid }}'.Replace('win-', '')
-          dotnet build installer/PcDoctor.Installer.wixproj -c Release -p:InstallerPlatform=$platform -p:Platform=$platform "-p:PublishDir=$PWD\out\${{ matrix.rid }}\" -o msi/${{ matrix.rid }}
+          dotnet build installer/PcDoctor.Installer.wixproj -c Release -p:InstallerPlatform=$platform -p:ProductVersion=0.8.${{ github.run_number }} -p:Platform=$platform "-p:PublishDir=$PWD\out\${{ matrix.rid }}\" -o msi/${{ matrix.rid }}
       - name: Sign the MSI (when a signing identity is configured)
         if: env.SIGNING_CERT_PFX_BASE64 != ''
         shell: pwsh
@@ -88,3 +88,30 @@ jobs:
         with:
           name: pcdoctor-msi-${{ matrix.rid }}
           path: msi/${{ matrix.rid }}/*.msi
+
+  # Every build of main becomes the newest release, so the installer has one fixed, obvious download address.
+  release:
+    needs: publish
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    defaults:
+      run:
+        working-directory: .
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: pcdoctor-msi-*
+          merge-multiple: true
+          path: msi
+      - name: Publish the installers as the latest release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: v0.8.${{ github.run_number }}
+        run: |
+          ls -l msi
+          gh release create "$TAG" msi/PCDoctor-x64.msi msi/PCDoctor-arm64.msi \
+            --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --latest \
+            --title "PC Doctor $TAG" \
+            --notes "Download **PCDoctor-x64.msi** for almost every Windows PC. Use PCDoctor-arm64.msi only on ARM PCs (for example Snapdragon laptops). Windows may warn about an unknown publisher because the installer is not signed with a paid certificate."
